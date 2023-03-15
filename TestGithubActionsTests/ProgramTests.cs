@@ -19,9 +19,9 @@ namespace TestGithubActions.Tests
         [TestMethod()]
         public void FooTest()
         {
-            using var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+            /*using var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
             using var key = baseKey.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion");
-            Console.WriteLine($"WINDOWS INSTALLATION TYPE: {key.GetValue("InstallationType")}");
+            Console.WriteLine($"WINDOWS INSTALLATION TYPE: {key.GetValue("InstallationType")}");*/
 
             var videoCapture = new VideoCapture();
 

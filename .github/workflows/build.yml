@@ -10,10 +10,15 @@ on:
 
 jobs:
   build-suite:
-    name: Build Suite
+    name: Build
     runs-on: windows-latest
 
     steps:
+    - name: Intallation Type
+      shell: powershell
+      run: |
+        Write-Host "WINDOWS INSTALLATION TYPE: $((Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion').InstallationType)"
+    
     # Checkout repository
     - uses: actions/checkout@v3
 

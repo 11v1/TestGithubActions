@@ -29,8 +29,8 @@ jobs:
         Write-Host "Discovered tests: $tests"
         dotnet vstest $tests /Framework:".NETFramework,Version=v4.8" /logger:"console;verbosity=normal"
 
-    # Upload artifacts: Installers
+    # Upload artifacts
     - uses: actions/upload-artifact@v3
       with:
-        name: Installers
+        name: Artifacts
         path: ${{ github.workspace }}\artifacts\*

@@ -9,6 +9,7 @@ using TestGithubActionsTests;
 using System.Reflection;
 using System.IO;
 using System.Threading;
+using Microsoft.Win32;
 
 namespace TestGithubActions.Tests
 {
@@ -18,6 +19,10 @@ namespace TestGithubActions.Tests
         [TestMethod()]
         public void FooTest()
         {
+            using var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+            using var key = baseKey.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion");
+            Console.WriteLine($"WINDOWS INSTALLATION TYPE: {key.GetValue("InstallationType")}");
+
             var videoCapture = new VideoCapture();
 
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);

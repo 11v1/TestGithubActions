@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target (Debug, Release)'
+        required: true
+        default: 'Release'
+
+jobs:
+  build-suite:
+    name: Build Suite
+    runs-on: windows-latest
+
+    steps:
+    # Checkout repository
+    - uses: actions/checkout@v3
+
+    # Run build
+    - name: Build
+      run: dotnet build --configuration Release
+
+    # Run test
+    - name: Run tests
+      shell: powershell
+      run: |
+        $tests = Get-ChildItem -recurse -file *Tests.dll | Where-Object { $_.FullName -notmatch "\\obj\\|Automation" } | ForEach-Object FullName
+        Write-Host "Discovered tests: $tests"
+        dotnet vstest $tests /Framework:".NETFramework,Version=v4.8" /logger:"console;verbosity=normal"
+
+    # Upload artifacts: Installers
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Installers
+        path: ${{ github.workspace }}\artifacts\*

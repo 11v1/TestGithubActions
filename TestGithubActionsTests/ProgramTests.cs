@@ -21,9 +21,10 @@ namespace TestGithubActions.Tests
             var videoCapture = new VideoCapture();
 
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            path = Path.Combine(path, @"..\..\..\..\");
             const string fileName = "MyVideo.mp4";
 
-            using var recorder = videoCapture.Start(fileName, Path.Combine(path, "Artifacts", fileName), Path.Combine(path, @"..\..\..\..\ffmpeg.exe"));
+            using var recorder = videoCapture.Start(fileName, Path.Combine(path, "Artifacts", fileName), Path.Combine(path, "ffmpeg.exe"));
             Thread.Sleep(TimeSpan.FromSeconds(5));
         }
     }
